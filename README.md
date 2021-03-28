@@ -1,5 +1,5 @@
 # 247_rating_scraper
-Scrapy based web-scraper for the 247 recruiting classes
+Scrapy based web-scraper for 247 recruiting classes. Pulls values like name, home town, high school, ratings, position, etc. The tool currently focuses primarily on football but may work with some basketball team pages.
 
 ## Usage
 
