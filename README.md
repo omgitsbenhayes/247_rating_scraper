@@ -8,7 +8,7 @@ Follow the steps below to install, configure, and run the Scrapy spider.
 ### Installation
 
 1. Download or clone the repository
-2. Ensure ```python 3.6+``` and ```scrapy 2+``` are installed.
+2. Ensure ```python 3.6+``` and ```scrapy 2+``` and any other dependencies are installed.
 
 ### Configuration
 
