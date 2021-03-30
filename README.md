@@ -3,7 +3,7 @@ Scrapy based web-scraper for 247 recruiting classes. Pulls values like name, hom
 
 ## Usage
 
-Follow the steps below to install, configure, and run the Scrapy spider.
+Follow the steps below to install, configure, and run the Scrapy spider. The spider will process each of the start URLs and navigate to the player detail pages.
 
 ### Installation
 
