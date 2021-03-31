@@ -90,8 +90,7 @@ class ratings_247_Spider(Spider):
 
   def parse_offers(self, response):
     commit_item = response.meta['commit']
-    commit_item['num_offers'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
-    commit_item['num_visits'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
+    commit_item['teamlist_num_offers'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
     
 
     yield commit_item
