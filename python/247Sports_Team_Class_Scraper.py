@@ -7,7 +7,7 @@ class ratings_247_Spider(Spider):
   name = "sp1"
   start_urls = ["https://247sports.com/college/penn-state/Season/2022-Football/Commits/", 
                 #"https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
-                "https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
+                #"https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2018-Football/Commits/", 
@@ -69,12 +69,22 @@ class ratings_247_Spider(Spider):
   
       parent_item['composite_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()").extract()
       parent_item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").extract()
-      parent_item['composite_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
-      parent_item['composite_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
-      parent_item['composite_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
-      parent_item['base_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
-      parent_item['base_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
-      parent_item['base_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
+      
+
+      parent_item['test'] = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and contains(h3.text(), '247Sports Com')]").extract()
+
+      # for ___ in ___:
+      #   parent_item['comp_' + ___] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section']/descendant").extract()
+
+      # for ___ in ___:
+      #   parent_item['base_' + ___]
+      
+      #parent_item['composite_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
+      #parent_item['composite_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
+      #parent_item['composite_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
+      #parent_item['base_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
+      #parent_item['base_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
+      #parent_item['base_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
       parent_item['player_num_offers'] = response.xpath(".//section[@class='college-comp']/header/div/span[1]/text()").extract()
       parent_item['player_num_visits'] = response.xpath(".//section[@class='college-comp']/header/div/span[2]/text()").extract()
       parent_item['player_num_coachvisits'] = response.xpath(".//section[@class='college-comp']/header/div/span[3]/text()").extract()
