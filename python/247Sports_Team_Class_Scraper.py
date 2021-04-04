@@ -1,6 +1,11 @@
 from scrapy import Request
 from scrapy import Selector
 from scrapy.spiders import Spider
+from items import PlayerItem
+from scrapy.loader import ItemLoader
+from scrapy.item import Item, Field
+
+
 
 # Define class for ratings_247_Spider web scraper
 class ratings_247_Spider(Spider):
@@ -23,88 +28,103 @@ class ratings_247_Spider(Spider):
                 # "https://247sports.com/college/ohio-state/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2015-Football/Commits/"
                 ]
-  custom_settings = { 'DOWNLOAD_DELAY': 0.135, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
+  custom_settings = { 'DOWNLOAD_DELAY': 0.15, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
   
+
+  ###################
+  # Parse functions #
+  ###################
+
   # Def standard parse() function to parse the page
   def parse(self, response):
     # Get all list elements
     elements = response.xpath("//section[@class='ri-page__body']/div[@class='ri-page__main']/ul[@class='ri-page__list']/li[@class='ri-page__list-item']")
-    items = []
-	
-    # Iterate through each top app 
-    for element in elements:
-      item = {}
-	  
-	  # Get elements
-      item['name'] = element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").extract()
-      item['page_url'] = element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").extract()[0]
-      item['rating'] = element.xpath(".//div[@class='rating']/div[@class='ri-page__star-and-score']/span[@class='score']/text()").extract()
-      item['position'] = element.xpath(".//div[@class='position']/text()").extract()
-      item['national_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='natrank']/text()").extract()
-      item['position_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='posrank']/text()").extract()
-      item['state_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='sttrank']/text()").extract()
-      #item['hometown_highschool_state'] = element.xpath(".//div[@class='recruit']/span[@class='meta']/text()").extract()
-      #item['early_enrollee'] = element.xpath(".//div[@class='recruit']/span[@class='meta']").extract()
-      #item['height'], item['weight'] = element.xpath(".//div[@class='metrics']/text()").extract()[0].split('/')
-      item['commit_status_date'] = element.xpath(".//div[@class='status']/p[@class='commit-date withDate']/text()").extract()
-      #item['image_url'] = element.xpath(".//div[@class='circle-image-block']/img[@class='jsonly']/@src").extract()
 
-      yield Request("https:" + item['page_url'], callback=self.parse_commit, meta={'parent': item})
+    # Iterate through each player 
+    for element in elements:
+      item = PlayerItem()
+      l = ItemLoader(item=item, response=response)
+	  
+  	  # Get elements (using add_value() because it does not require creating a new ItemLoader for element)
+      l.add_value('name', ".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").extract()
+      l.add_value('page_url', element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").extract()[0])
+      l.add_value('rating', element.xpath(".//div[@class='rating']/div[@class='ri-page__star-and-score']/span[@class='score']/text()").extract())
+      l.add_value('national_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='natrank']/text()").extract())
+      l.add_value('position_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='posrank']/text()").extract())
+      l.add_value('state_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='sttrank']/text()").extract())
+      l.add_value('commit_status_date', element.xpath(".//div[@class='status']/p[@class='commit-date withDate']/text()").extract())
+
+      yield Request("https:" + l.get_output_value('page_url')[0], callback=self.parse_commit, meta={'parent': l.load_item()})
 
 
   def parse_commit(self, response):
-    parent_item = response.meta['parent']
+    # Assign item from parent
+    item = response.meta['parent']
+
+    # Create item loader
+    l = ItemLoader(item=item, response=response)    
+
+    # Determine if current commit (in current class) or former commit (in previous class)
     commit_status, url = self._determine_commit_status(response)
 
     # Handle current commits
     if commit_status:
-      parent_item['position'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Pos')]/following-sibling::span/text()").extract()    
-      parent_item['height'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Height')]/following-sibling::span/text()").extract()
-      parent_item['weight'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Weight')]/following-sibling::span/text()").extract()
-      #parent_item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span/text()").extract()
-      #parent_item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]//text()").extract()
-      parent_item['home_town'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Home Town')]/following-sibling::span/text()").extract()
-      parent_item['class'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class')]/following-sibling::span[1]/text()").extract()
-      # early enrollee
+      l.add_xpath('position', ".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Pos')]/following-sibling::span/text()")
+      l.add_xpath('height', ".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Height')]/following-sibling::span/text()")
+      l.add_xpath('weight', ".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Weight')]/following-sibling::span/text()")
+      l.add_xpath('home_town', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Home Town')]/following-sibling::span/text()")
+      l.add_xpath('class_year', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class')]/following-sibling::span[1]/text()")
+
+      # #item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span/text()").extract()
+      # #item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]//text()").extract()
+      # # early enrollee
   
-      parent_item['composite_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()").extract()
-      parent_item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").extract()
+      l.add_xpath('composite_rating', ".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()")
+      l.add_xpath('base_rating', ".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()")
+
+      comp_ratings = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and h3[contains(text(), '247Sports Com')]]//ul[@class='ranks-list']/li")
+      for rating in comp_ratings:
+        item.fields['comp_' + rating.xpath(".//b/text()").get()] = Field()
+        l.add_value('comp_' + rating.xpath(".//b/text()").get(), rating.xpath(".//strong/text()").get())
+
+      base_ratings = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and h3[text() = '247Sports']]//ul[@class='ranks-list']/li")
+      for rating in base_ratings:
+        item.fields['base_' + rating.xpath(".//b/text()").get()] = Field()
+        l.add_value('base_' + rating.xpath(".//b/text()").get(), rating.xpath(".//strong/text()").get())        
       
-
-      parent_item['test'] = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and contains(h3.text(), '247Sports Com')]").extract()
-
-      # for ___ in ___:
-      #   parent_item['comp_' + ___] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section']/descendant").extract()
-
-      # for ___ in ___:
-      #   parent_item['base_' + ___]
+      #item['composite_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
+      #item['composite_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
+      #item['composite_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
+      #item['base_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
+      #item['base_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
+      #item['base_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
       
-      #parent_item['composite_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
-      #parent_item['composite_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
-      #parent_item['composite_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
-      #parent_item['base_natl_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[1]/b/following-sibling::a/strong/text()").extract()
-      #parent_item['base_pos_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[2]/b/following-sibling::a/strong/text()").extract()
-      #parent_item['base_state_rank'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/ul[@class='ranks-list']/li[3]/b/following-sibling::a/strong/text()").extract()
-      parent_item['player_num_offers'] = response.xpath(".//section[@class='college-comp']/header/div/span[1]/text()").extract()
-      parent_item['player_num_visits'] = response.xpath(".//section[@class='college-comp']/header/div/span[2]/text()").extract()
-      parent_item['player_num_coachvisits'] = response.xpath(".//section[@class='college-comp']/header/div/span[3]/text()").extract()
-      parent_item['commit_list_url'] = response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").extract()[0]
+      l.add_xpath('player_num_offers', ".//section[@class='college-comp']/header/div/span[1]/text()")
+      l.add_xpath('player_num_visits', ".//section[@class='college-comp']/header/div/span[2]/text()")
+      l.add_xpath('player_num_coachvisits', ".//section[@class='college-comp']/header/div/span[3]/text()")      
+      l.add_value('commit_list_url', response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").extract()[0])
       
       # Call REQUEST (parse_offers)
-      yield Request(parent_item['commit_list_url'], callback=self.parse_offers, meta={'commit': parent_item})
+      yield Request(l.get_output_value('commit_list_url')[0], callback=self.parse_offers, meta={'commit': l.load_item()})
   
     else:
       # Call REQUEST (parse_commit)
-      yield Request(url, callback=self.parse_commit, meta={'parent': parent_item})
+      yield Request(url, callback=self.parse_commit, meta={'parent': item})
 
 
   def parse_offers(self, response):
-    commit_item = response.meta['commit']
-    commit_item['teamlist_num_offers'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
-    
+    # Assign item from parent meta
+    item = response.meta['commit']
 
-    yield commit_item
+    # Count number of team list offers
+    item['teamlist_num_offers'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
 
+    yield item
+
+
+  ####################
+  # Helper functions #
+  ####################
 
   def _determine_commit_status(self, response):
     current, url = True, ""
