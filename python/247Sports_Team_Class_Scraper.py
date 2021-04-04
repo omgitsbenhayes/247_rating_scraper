@@ -11,24 +11,33 @@ from scrapy.item import Item, Field
 class ratings_247_Spider(Spider):
   name = "sp1"
   start_urls = ["https://247sports.com/college/penn-state/Season/2022-Football/Commits/", 
-                #"https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
-                #"https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
-                # "https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
+                "https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2018-Football/Commits/", 
                 # "https://247sports.com/college/penn-state/Season/2017-Football/Commits/", 
                 # "https://247sports.com/college/penn-state/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2015-Football/Commits/",
-                #"https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
-                #"https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
-                # "https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
+                "https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
+                "https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2018-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2017-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/ohio-state/Season/2015-Football/Commits/"
+                # "https://247sports.com/college/ohio-state/Season/2015-Football/Commits/",
+                "https://247sports.com/college/michigan/Season/2022-Football/Commits/",
+                "https://247sports.com/college/michigan/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/michigan/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2016-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2015-Football/Commits/",
+                #"https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
+
                 ]
-  custom_settings = { 'DOWNLOAD_DELAY': 0.15, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
+  custom_settings = { 'DOWNLOAD_DELAY': 0.175, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
   
 
   ###################
@@ -46,7 +55,7 @@ class ratings_247_Spider(Spider):
       l = ItemLoader(item=item, response=response)
 	  
   	  # Get elements (using add_value() because it does not require creating a new ItemLoader for element)
-      l.add_value('name', ".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").extract()
+      l.add_value('name', element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").extract())
       l.add_value('page_url', element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").extract()[0])
       l.add_value('rating', element.xpath(".//div[@class='rating']/div[@class='ri-page__star-and-score']/span[@class='score']/text()").extract())
       l.add_value('national_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='natrank']/text()").extract())
@@ -74,6 +83,7 @@ class ratings_247_Spider(Spider):
       l.add_xpath('weight', ".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Weight')]/following-sibling::span/text()")
       l.add_xpath('home_town', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Home Town')]/following-sibling::span/text()")
       l.add_xpath('class_year', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class')]/following-sibling::span[1]/text()")
+      l.add_xpath('team_name', ".//section[@class='main-content full']/section[@class='college-comp']/div/ul/li[span/text() = 'Committed' or span/text() = 'Signed' or span/text() = 'Enrolled']/div/a[@class='college-comp__team-name-link']/text()")
 
       # #item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span/text()").extract()
       # #item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]//text()").extract()
