@@ -23,4 +23,4 @@ Update the parameters in the configuration file located at `./config/config.toml
 
 ### 3. Run
 
-Run the spider with the command: `scrapy runspider ./python/247Sports_Team_Class_Scraper.py -t csv -O ./data/output.csv`
+Run the spider with the command: `scrapy crawl a247 -t csv -O data/output.csv`. Add other arguments as needed.
