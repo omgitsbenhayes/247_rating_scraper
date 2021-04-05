@@ -1,7 +1,7 @@
 from scrapy import Request
 from scrapy import Selector
 from scrapy.spiders import Spider
-from items import PlayerItem
+from ..items import PlayerItem
 from scrapy.loader import ItemLoader
 from scrapy.item import Item, Field
 
@@ -9,7 +9,7 @@ from scrapy.item import Item, Field
 
 # Define class for ratings_247_Spider web scraper
 class ratings_247_Spider(Spider):
-  name = "sp1"
+  name = "a247"
   start_urls = ["https://247sports.com/college/penn-state/Season/2022-Football/Commits/", 
                 #"https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
                 #"https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
@@ -37,7 +37,7 @@ class ratings_247_Spider(Spider):
                 "https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
 
                 ]
-  custom_settings = { 'DOWNLOAD_DELAY': 0.175, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
+  #custom_settings = { 'DOWNLOAD_DELAY': 0.175, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
   
 
   ###################

@@ -1,8 +1,0 @@
-[spider]
-name = 'sp1'
-user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
-download_delay = 0.135
-start_urls = [
-	'https://247sports.com/college/ohio-state/Season/2022-Football/Commits/',
-	'https://247sports.com/college/penn-state/Season/2022-Football/Commits/'
-]
