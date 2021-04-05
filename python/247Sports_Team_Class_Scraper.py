@@ -11,30 +11,30 @@ from scrapy.item import Item, Field
 class ratings_247_Spider(Spider):
   name = "sp1"
   start_urls = ["https://247sports.com/college/penn-state/Season/2022-Football/Commits/", 
-                "https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
                 #"https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2018-Football/Commits/", 
                 # "https://247sports.com/college/penn-state/Season/2017-Football/Commits/", 
                 # "https://247sports.com/college/penn-state/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2015-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
+                #"https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
                 #"https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2018-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2017-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2015-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2022-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/michigan/Season/2022-Football/Commits/",
+                #"https://247sports.com/college/michigan/Season/2021-Football/Commits/",
                 #"https://247sports.com/college/michigan/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/michigan/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/michigan/Season/2018-Football/Commits/",
                 # "https://247sports.com/college/michigan/Season/2017-Football/Commits/",
                 # "https://247sports.com/college/michigan/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/michigan/Season/2015-Football/Commits/",
-                #"https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
+                "https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
 
                 ]
   custom_settings = { 'DOWNLOAD_DELAY': 0.175, 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' }
@@ -55,15 +55,19 @@ class ratings_247_Spider(Spider):
       l = ItemLoader(item=item, response=response)
 	  
   	  # Get elements (using add_value() because it does not require creating a new ItemLoader for element)
+      l.add_value('url', response.url)
+      _, _, _, _, _, _, a, _, _ = response.url.split('/')
+      a = a[5:]
+      l.add_value('sport', a)
       l.add_value('name', element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").extract())
-      l.add_value('page_url', element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").extract()[0])
+      l.add_value('player_page_url', element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").extract()[0])
       l.add_value('rating', element.xpath(".//div[@class='rating']/div[@class='ri-page__star-and-score']/span[@class='score']/text()").extract())
       l.add_value('national_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='natrank']/text()").extract())
       l.add_value('position_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='posrank']/text()").extract())
       l.add_value('state_ranking', element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='sttrank']/text()").extract())
       l.add_value('commit_status_date', element.xpath(".//div[@class='status']/p[@class='commit-date withDate']/text()").extract())
 
-      yield Request("https:" + l.get_output_value('page_url')[0], callback=self.parse_commit, meta={'parent': l.load_item()})
+      yield Request("https:" + l.get_output_value('player_page_url')[0], callback=self.parse_commit, meta={'parent': l.load_item()})
 
 
   def parse_commit(self, response):

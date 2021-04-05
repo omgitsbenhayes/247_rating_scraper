@@ -1,8 +1,11 @@
 from scrapy.item import Item, Field
 
 class PlayerItem(Item):
+
+    url = Field()
+    sport = Field()
     name = Field()
-    page_url = Field()
+    player_page_url = Field()
     rating = Field()
     position = Field()
     national_ranking = Field()
