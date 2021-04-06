@@ -84,7 +84,7 @@ class ratings_247_Spider(Spider):
       l.add_xpath('home_town', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Home Town')]/following-sibling::span/text()")
       l.add_xpath('class_year', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class')]/following-sibling::span[1]/text()")
       l.add_xpath('team_name', ".//section[@class='main-content full']/section[@class='college-comp']/div/ul/li[span/text() = 'Committed' or span/text() = 'Signed' or span/text() = 'Enrolled']/div/a[@class='college-comp__team-name-link']/text()")
-      l.add_xpath('high_school', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]//text()")
+      l.add_xpath('high_school', ".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span//text()")
       # #item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span/text()").extract()
       # # early enrollee
   
