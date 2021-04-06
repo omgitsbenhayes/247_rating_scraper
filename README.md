@@ -19,7 +19,7 @@ Follow the steps below to install, configure, and run the Scrapy spider. The spi
 
 ### 2. Configuration
 
-Update the parameters in the configuration file located at `./config/config.toml`. The toml file structure allows you to specify the spider name, user agent, download delay, and start URLs.
+Update the parameters in the settings file located at `./a_247_rating_scraper/settings.py`. `START_URLS` should be declared in the main spider file itself `./a_247_rating_scraper/a_247_rating_scraper.py`.
 
 ### 3. Run
 
