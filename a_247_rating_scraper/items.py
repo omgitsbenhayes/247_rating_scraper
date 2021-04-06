@@ -17,6 +17,8 @@ class PlayerItem(Item):
     position_ranking = Field()
     state_ranking = Field()
     commit_status_date = Field()
+    high_school = Field()
+    early_enrollee = Field()
     team_name = Field()
     position = Field()
     height = Field()

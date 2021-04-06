@@ -18,8 +18,8 @@ class ratings_247_Spider(Spider):
                 # "https://247sports.com/college/penn-state/Season/2017-Football/Commits/", 
                 # "https://247sports.com/college/penn-state/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2015-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
+                #"https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
+                #"https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2018-Football/Commits/",
@@ -88,6 +88,7 @@ class ratings_247_Spider(Spider):
       # #item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span/text()").extract()
       # # early enrollee
   
+      l.add_value('early_enrollee', 1 if len(response.xpath(".//section[@class='main-content full']/header/div[@class='upper-cards']/ul[@class='details ']/li[span/text() = 'Class']/span[@class='icon-time']")) > 0 else 0)
       l.add_xpath('composite_rating', ".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()")
       l.add_xpath('base_rating', ".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()")
 
