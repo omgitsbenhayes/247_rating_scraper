@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.6+](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+
 
 Multi-page `Scrapy-based web-scraper` for 247 recruiting classes. Pulls values like name, home town, high school, ratings, position, etc. The tool currently focuses primarily on football but may work with some basketball team pages. Built entirely using `python`.
 
@@ -24,4 +26,5 @@ Update the parameters in the settings file located at `./a_247_rating_scraper/se
 
 ### 3. Run
 
-Run the spider with the command: `scrapy crawl a247 -t csv -O data/output.csv`. Add other arguments as needed.
+To get a JSON file (recommended): Run the spider with the command: `scrapy crawl a247 -t json -O data/output.json`. Add other arguments as needed.
+To get a CSV file: Run the spider with the command: `scrapy crawl a247 -t csv -O data/output.csv`. Add other arguments as needed. Note that columns may be missing headings while using CSV files.
