@@ -18,8 +18,8 @@ class ratings_247_Spider(Spider):
                 # "https://247sports.com/college/penn-state/Season/2017-Football/Commits/", 
                 # "https://247sports.com/college/penn-state/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/penn-state/Season/2015-Football/Commits/",
-                #"https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
-                #"https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2019-Football/Commits/",
                 # "https://247sports.com/college/ohio-state/Season/2018-Football/Commits/",
@@ -132,10 +132,22 @@ class ratings_247_Spider(Spider):
     # Assign item from parent meta
     item = response.meta['commit']
 
-    # Count number of team list offers
-    item['teamlist_num_offers'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
+    # Create item loader
+    l = ItemLoader(item=item, response=response)    
 
-    yield item
+    # Count number of team list offers
+    l.add_value('teamlist_num_offers', len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract()))
+    #item['teamlist_num_offers'] = len(response.xpath(".//section//div[@class='secondary_blk']/span[contains(., 'Yes')]").extract())
+
+    school_offers = response.xpath(".//section[@class='list-body']/section/ul/li//div[div[@class='first_blk'] and //span[@class='offer' and text()[contains(., 'Yes')]]]/div[@class='first_blk']/a[1]")
+    for school in school_offers:
+      if 'offer' + school.xpath('./text()').get() in item.fields:
+        l.add_value('offer_' + school.xpath('./text()').get(), 'Y')
+      else:
+        item.fields['offer_' + school.xpath('./text()').get()] = Field()
+        l.add_value('offer_' + school.xpath('./text()').get(), 'Y')
+
+    yield l.load_item()
 
 
   ####################
