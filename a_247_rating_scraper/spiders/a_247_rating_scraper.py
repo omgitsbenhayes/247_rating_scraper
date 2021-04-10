@@ -1,11 +1,6 @@
 from scrapy import Request
 from scrapy import Selector
 from scrapy.spiders import Spider
-# from ..items import PlayerItem
-# from scrapy.loader import ItemLoader
-# from scrapy.item import Item, Field
-
-
 
 # Define class for ratings_247_Spider web scraper
 class ratings_247_Spider(Spider):
@@ -131,8 +126,11 @@ class ratings_247_Spider(Spider):
       item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span//text()").get()
       item['early_enrollee'] = 1 if len(response.xpath(".//section[@class='main-content full']/header/div[@class='upper-cards']/ul[@class='details ']/li[span/text() = 'Class']/span[@class='icon-time']")) > 0 else 0
       item['composite_ranking'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()").get()
-      item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").get()
-
+      item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").get()      item['player_num_offers'] = response.xpath(".//section[@class='college-comp']/header/div/span[1]/text()").get()
+      item['player_num_visits'] = response.xpath(".//section[@class='college-comp']/header/div/span[2]/text()").get()
+      item['player_num_coachvisits'] = response.xpath(".//section[@class='college-comp']/header/div/span[3]/text()").get()
+      item['commit_list_url'] = response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").extract()[0]
+      
       comp_ratings = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and h3[contains(text(), '247Sports Com')]]//ul[@class='ranks-list']/li")
       for rating in comp_ratings:
         item['comp_' + rating.xpath(".//b/text()").get()] = rating.xpath(".//strong/text()").get()
@@ -140,11 +138,6 @@ class ratings_247_Spider(Spider):
       base_ratings = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and h3[text() = '247Sports']]//ul[@class='ranks-list']/li")
       for rating in base_ratings:
         item['base_' + rating.xpath(".//b/text()").get()] = rating.xpath(".//strong/text()").get()
-
-      item['player_num_offers'] = response.xpath(".//section[@class='college-comp']/header/div/span[1]/text()").get()
-      item['player_num_visits'] = response.xpath(".//section[@class='college-comp']/header/div/span[2]/text()").get()
-      item['player_num_coachvisits'] = response.xpath(".//section[@class='college-comp']/header/div/span[3]/text()").get()
-      item['commit_list_url'] = response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").extract()[0]
 
       # Call REQUEST (parse_offers)
       yield Request(item['commit_list_url'] , callback=self.parse_offers, meta={'commit': item})
