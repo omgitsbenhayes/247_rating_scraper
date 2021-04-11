@@ -5,11 +5,40 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 
-Multi-page `Scrapy-based web-scraper` for 247 recruiting classes. Pulls values like name, home town, high school, ratings, position, etc. The tool currently focuses primarily on football but may work with some basketball team pages. Built entirely using `python`.
+Multi-page `Scrapy-based web-scraper` for 247 recruiting classes. Pulls values like name, home town, high school, ratings, position, etc (for a full list view the details below). The tool currently focuses primarily on football but may work with some basketball team pages. Built entirely using `python`.
 
 > Note: This repository is for demonstration and educational purposes only. 
 > Web-scraping is a fast-evolving, exciting field and the potential of tools 
 > like Scrapy are shown here.
+
+## Data Fields
+
+* Team Page URL
+* Sport (derived from URL)
+* Name
+* Player Page URL
+* Rating (from team page, e.g., 0.8500)
+* National Ranking
+* Position Ranking
+* State Ranking
+* Commit Status Date (if applicable; enrollees and signees lose this value)
+* Position
+* Height
+* Weight
+* Hometown
+* Class year
+* Team Name (committed to)
+* High School
+* Early Enrollee (binary)
+* Composite Ranking (from player page, e.g., 0.8500)
+* Base Rating (e.g., 0.8450)
+* Number of Visits
+* Number of Coach Visits
+* Commitment List URL
+* Addl. ranking information
+* Number of offers received
+* Schools with offer
+
 
 ## Usage
 
