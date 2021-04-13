@@ -137,6 +137,7 @@ class ratings_247_Spider(Spider):
       item['player_num_visits'] = response.xpath(".//section[@class='college-comp']/header/div/span[2]/text()").get()
       item['player_num_coachvisits'] = response.xpath(".//section[@class='college-comp']/header/div/span[3]/text()").get()
       item['commit_list_url'] = response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").get()
+      item['athletic_background'] = response.xpath(".//div[@class='background-and-skills only']//section[@class='athletic-background']/div//p[string-length(text()) > 1]/text()").get()
       
       comp_ratings = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and h3[contains(text(), '247Sports Com')]]//ul[@class='ranks-list']/li")
       for rating in comp_ratings:
