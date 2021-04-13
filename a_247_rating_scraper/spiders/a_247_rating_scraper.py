@@ -7,78 +7,81 @@ class ratings_247_Spider(Spider):
   name = "a247"
   start_urls = ["https://247sports.com/college/penn-state/Season/2022-Football/Commits/", 
                 "https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
-                "https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
-                "https://247sports.com/college/penn-state/Season/2019-Football/Commits/",
-                "https://247sports.com/college/penn-state/Season/2018-Football/Commits/", 
-                "https://247sports.com/college/penn-state/Season/2017-Football/Commits/", 
-                "https://247sports.com/college/penn-state/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/penn-state/Season/2015-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2019-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2018-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2017-Football/Commits/",
-                "https://247sports.com/college/ohio-state/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/ohio-state/Season/2015-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2022-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2021-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2020-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2019-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2018-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2017-Football/Commits/",
-                "https://247sports.com/college/michigan/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/michigan/Season/2015-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2022-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2021-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2020-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2019-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2018-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2017-Football/Commits/",
-                "https://247sports.com/college/alabama/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/alabama/Season/2015-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2022-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2021-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2020-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2019-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2018-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2017-Football/Commits/",
-                "https://247sports.com/college/georgia/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/georgia/Season/2015-Football/Commits/", 
-                "https://247sports.com/college/oklahoma/Season/2022-Football/Commits/",
-                "https://247sports.com/college/oklahoma/Season/2021-Football/Commits/",
-                "https://247sports.com/college/oklahoma/Season/2020-Football/Commits/",
-                "https://247sports.com/college/oklahoma/Season/2019-Football/Commits/",
-                "https://247sports.com/college/oklahoma/Season/2018-Football/Commits/",
-                "https://247sports.com/college/oklahoma/Season/2017-Football/Commits/",
-                "https://247sports.com/college/oklahoma/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/oklahoma/Season/2015-Football/Commits/", 
-                "https://247sports.com/college/texas/Season/2022-Football/Commits/",
-                "https://247sports.com/college/texas/Season/2021-Football/Commits/",
-                "https://247sports.com/college/texas/Season/2020-Football/Commits/",
-                "https://247sports.com/college/texas/Season/2019-Football/Commits/",
-                "https://247sports.com/college/texas/Season/2018-Football/Commits/",
-                "https://247sports.com/college/texas/Season/2017-Football/Commits/",
-                "https://247sports.com/college/texas/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/texas/Season/2015-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2022-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2021-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2020-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2019-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2018-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2017-Football/Commits/",
-                "https://247sports.com/college/clemson/Season/2016-Football/Commits/",
-                # "https://247sports.com/college/clemson/Season/2015-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2022-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2021-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2020-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2019-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2018-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2017-Football/Commits/",
-                "https://247sports.com/college/lsu/Season/2016-Football/Commits/",
+                # "https://247sports.com/college/penn-state/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/penn-state/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/penn-state/Season/2018-Football/Commits/", 
+                # "https://247sports.com/college/penn-state/Season/2017-Football/Commits/", 
+                # "https://247sports.com/college/penn-state/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/penn-state/Season/2015-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/ohio-state/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/ohio-state/Season/2015-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/michigan/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/michigan/Season/2015-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/alabama/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/alabama/Season/2015-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/georgia/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/georgia/Season/2015-Football/Commits/", 
+                # "https://247sports.com/college/oklahoma/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/oklahoma/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/oklahoma/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/oklahoma/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/oklahoma/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/oklahoma/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/oklahoma/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/oklahoma/Season/2015-Football/Commits/", 
+                # "https://247sports.com/college/texas/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/texas/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/texas/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/texas/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/texas/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/texas/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/texas/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/texas/Season/2015-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/clemson/Season/2016-Football/Commits/",
+                # # "https://247sports.com/college/clemson/Season/2015-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2022-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2021-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2020-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2019-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2018-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2017-Football/Commits/",
+                # "https://247sports.com/college/lsu/Season/2016-Football/Commits/",
                 # "https://247sports.com/college/lsu/Season/2015-Football/Commits/",
                 #"https://247sports.com/college/penn-state/Season/2020-Basketball/Commits/",
                 ]
+  
+  # Toggle Player Details
+  __fetch_player_details__ = True
   
 
   ###################
@@ -97,15 +100,18 @@ class ratings_247_Spider(Spider):
   	  # Get elements (using add_value() because it does not require creating a new ItemLoader for element)
       item['url'] = response.url
       item['sport'] = self._get_sport_from_url(response)
-      item['name'] = element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").extract()
-      item['player_page_url'] = element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").extract()[0]
-      item['rating'] = element.xpath(".//div[@class='rating']/div[@class='ri-page__star-and-score']/span[@class='score']/text()").extract()
-      item['national_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='natrank']/text()").extract()
-      item['position_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='posrank']/text()").extract()
-      item['state_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='sttrank']/text()").extract()
-      item['commit_status_date'] = element.xpath(".//div[@class='status']/p[@class='commit-date withDate']/text()").extract()
+      item['name'] = element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/text()").get()
+      item['player_page_url'] = element.xpath(".//div[@class='recruit']/a[@class='ri-page__name-link']/@href").get()
+      item['rating'] = element.xpath(".//div[@class='rating']/div[@class='ri-page__star-and-score']/span[@class='score']/text()").get()
+      item['national_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='natrank']/text()").get()
+      item['position_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='posrank']/text()").get()
+      item['state_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='sttrank']/text()").get()
+      item['commit_status_date'] = element.xpath(".//div[@class='status']/p[@class='commit-date withDate']/text()").get()
 
-      yield Request("https:" + item['player_page_url'], callback=self.parse_commit, meta={'parent': item})
+      if self.fetch_player_details():
+        yield Request("https:" + item['player_page_url'], callback=self.parse_commit, meta={'parent': item})
+      else:
+        yield item
 
 
   def parse_commit(self, response):
@@ -121,15 +127,16 @@ class ratings_247_Spider(Spider):
       item['height'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Height')]/following-sibling::span/text()").get()
       item['weight'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Weight')]/following-sibling::span/text()").get()
       item['home_town'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Home Town')]/following-sibling::span/text()").get()
-      item['class_year'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class')]/following-sibling::span[1]/text()").get()
+      item['class_year'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class') or contains(text(), 'Exp')]/following-sibling::span[1]/text()").get()
       item['team_name'] = response.xpath(".//section[@class='main-content full']/section[@class='college-comp']/div/ul/li[span/text() = 'Committed' or span/text() = 'Signed' or span/text() = 'Enrolled']/div/a[@class='college-comp__team-name-link']/text()").get()
       item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span//text()").get()
       item['early_enrollee'] = 1 if len(response.xpath(".//section[@class='main-content full']/header/div[@class='upper-cards']/ul[@class='details ']/li[span/text() = 'Class']/span[@class='icon-time']")) > 0 else 0
       item['composite_ranking'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()").get()
-      item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").get()      item['player_num_offers'] = response.xpath(".//section[@class='college-comp']/header/div/span[1]/text()").get()
+      item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").get()      
+      item['player_num_offers'] = response.xpath(".//section[@class='college-comp']/header/div/span[1]/text()").get()
       item['player_num_visits'] = response.xpath(".//section[@class='college-comp']/header/div/span[2]/text()").get()
       item['player_num_coachvisits'] = response.xpath(".//section[@class='college-comp']/header/div/span[3]/text()").get()
-      item['commit_list_url'] = response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").extract()[0]
+      item['commit_list_url'] = response.xpath(".//footer[@class='college-comp__footer']/a[@class='college-comp__view-all']/@href").get()
       
       comp_ratings = response.xpath(".//section[@class='main-wrapper']//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section' and h3[contains(text(), '247Sports Com')]]//ul[@class='ranks-list']/li")
       for rating in comp_ratings:
@@ -179,3 +186,11 @@ class ratings_247_Spider(Spider):
       current = False
       
     return current, url
+
+
+  ####################
+  # Getter functions #
+  ####################
+
+  def fetch_player_details(self):
+    return self.__fetch_player_details__
