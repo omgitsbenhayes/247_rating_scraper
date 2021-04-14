@@ -167,11 +167,11 @@ class ratings_247_Spider(Spider):
       item['position'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Pos')]/following-sibling::span/text()").get()
       item['height'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Height')]/following-sibling::span/text()").get()
       item['weight'] = response.xpath(".//div[@class='upper-cards']/ul[@class='metrics-list']//span[contains(text(), 'Weight')]/following-sibling::span/text()").get()
-      item['home_town'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Home Town')]/following-sibling::span/text()").get()
-      item['class_year'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'Class') or contains(text(), 'Exp')]/following-sibling::span[1]/text()").get()
+      item['home_town'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ' or @class='details is-juco']//span[contains(text(), 'Home Town')]/following-sibling::span/text()").get()
+      item['class_year'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ' or @class='details is-juco']//span[contains(text(), 'Class') or contains(text(), 'Exp')]/following-sibling::span[1]/text()").get()
       item['team_name'] = response.xpath(".//section[@class='main-content full']/section[@class='college-comp']/div/ul/li[span/text() = 'Committed' or span/text() = 'Signed' or span/text() = 'Enrolled']/div/a[@class='college-comp__team-name-link']/text()").get()
-      item['high_school'] = response.xpath(".//div[@class='upper-cards']/ul[@class='details ']//span[contains(text(), 'High School')]/following-sibling::span//text()").get()
-      item['early_enrollee'] = 1 if len(response.xpath(".//section[@class='main-content full']/header/div[@class='upper-cards']/ul[@class='details ']/li[span/text() = 'Class']/span[@class='icon-time']")) > 0 else 0
+      item['high_school'] = ''.join(response.xpath(".//div[@class='upper-cards']/ul[@class='details ' or @class='details is-juco']//span[contains(text(), 'High School')]/following-sibling::span//text()").getall()).strip()
+      item['early_enrollee'] = 1 if len(response.xpath(".//section[@class='main-content full']/header/div[@class='upper-cards']/ul[@class='details ' or @class='details is-juco']/li[span/text() = 'Class']/span[@class='icon-time']")) > 0 else 0
       item['composite_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][1]/div/div[@class='rank-block']/text()").get()
       item['base_rating'] = response.xpath(".//div[@class='lower-cards']/section[@class='rankings']/section[@class='rankings-section'][2]/div/div[@class='rank-block']/text()").get()      
       
