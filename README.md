@@ -11,34 +11,6 @@ Multi-page `Scrapy-based web-scraper` for 247 recruiting classes. Pulls values l
 > Web-scraping is a fast-evolving, exciting field and the potential of tools 
 > like Scrapy are shown here.
 
-## Data Fields
-
-* Team Page URL
-* Sport (derived from URL)
-* Name
-* Player Page URL
-* Rating (from team page, e.g., 0.8500)
-* National Ranking
-* Position Ranking
-* State Ranking
-* Commit Status Date (if applicable; enrollees and signees lose this value)
-* Position
-* Height
-* Weight
-* Hometown
-* Class year
-* Team Name (committed to)
-* High School
-* Early Enrollee (binary)
-* Composite Ranking (from player page, e.g., 0.8500)
-* Base Rating (e.g., 0.8450)
-* Number of Visits
-* Number of Coach Visits
-* Commitment List URL
-* Addl. ranking information
-* Number of offers received
-* Schools with offer
-
 
 ## Usage
 
@@ -57,3 +29,60 @@ Update the parameters in the settings file located at `./a_247_rating_scraper/se
 
 * To get a JSON file (recommended): Run the spider with the command: `scrapy crawl a247 -t json -O data/output.json`. Add other arguments as needed.
 * To get a CSV file: Run the spider with the command: `scrapy crawl a247 -t csv -O data/output.csv`. Add other arguments as needed. Note that columns may be missing headings while using CSV files due to the way Scrapy writes CSV files and determines headings [see more here](https://docs.scrapy.org/en/latest/_modules/scrapy/exporters.html#CsvItemExporter).
+
+
+## Data Fields
+
+### Team Page Details
+
+* Team page URL
+* Sport
+* Recruit name
+* Rating (e.g., 0.9500)
+* National ranking (e.g., #214)
+* Position ranking (e.g., #13)
+* State ranking (e.g., #6)
+* Commit status/date
+* Recruit page URL --> (scraped for recruit details)
+
+### Recruit Page Details
+
+#### Recruit Background Info
+
+* Position (e.g., WR)
+* Height
+* Weight
+* Hometown
+* Class year (e.g., 2020)
+* Team name (e.g., Penn State)
+* High school
+* Early enrollee (e.g., 1 if early enrollee)
+* Composite rating (should match Rating afrom team page details, e.g., 0.9500)
+* Base rating (e.g., 0.9450)
+* National ranking (composite)
+* Position ranking (composite)
+* State ranking (composite)
+* National ranking (base)
+* Position ranking (base)
+* State ranking (base)
+
+#### Recruit Evaluation Info
+
+* Evaluation date
+* Evaluation evaluator name
+* Evaluation projection (round, day)
+* Evaluation comparison (e.g., Bud Dupree)
+* Evaluation text (e.g., Alex Alexson is an elite athlete with top level talent. Clearly deserving of his 0.9500 rating)
+* Athletic background (e.g., Alex Alexson is a 6-1 WR from south Texas)
+
+#### Recruit Commitment Info
+
+* Number of offers received (e.g., 24)
+* Number of visits (e.g., 2)
+* Number of coaching visits (e.g., 1)
+* Commit list URL --> (scraped for full commitment page details)
+
+### Commitment Page Details
+
+* Number of offers received (should match value above from recruit page)
+* Schools that offered recruit (e.g., Alabama --> Yes if Alabama offered recruit)
