@@ -28,7 +28,7 @@ Update the parameters in the settings file located at `./a_247_rating_scraper/se
 ### 3. Run
 
 * To get a JSON file (recommended): Run the spider with the command: `scrapy crawl a247 -t json -O data/output.json`. Add other arguments as needed.
-* To get a CSV file: Run the spider with the command: `scrapy crawl a247 -t csv -O data/output.csv`. Add other arguments as needed. Note that columns may be missing headings while using CSV files due to the way Scrapy writes CSV files and determines headings [see more here](https://docs.scrapy.org/en/latest/_modules/scrapy/exporters.html#CsvItemExporter).
+* To get a CSV file: Run the spider with the command: `scrapy crawl a247 -t csv -O data/output.csv`. Add other arguments as needed. Note that columns may be missing headings while using CSV files due to the way Scrapy writes CSV files and determines headings. [See more here.](https://docs.scrapy.org/en/latest/_modules/scrapy/exporters.html#CsvItemExporter).
 
 
 ## Data Fields
