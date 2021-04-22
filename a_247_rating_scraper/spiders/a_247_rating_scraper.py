@@ -4,6 +4,11 @@ from scrapy.spiders import Spider
 
 # Define class for ratings_247_Spider web scraper
 class ratings_247_Spider(Spider):
+  """A scrapy spider that scrapes college sport recruit data from the elite 247 sports 
+     website. Do not abuse this code as it is intended for education purposes only.
+  
+  Define start URLs here and any other scrapy settings (e.g., download delay) in settings.py.
+  """
   name = "a247"
   start_urls = ["https://247sports.com/college/penn-state/Season/2022-Football/Commits/", 
                 "https://247sports.com/college/penn-state/Season/2021-Football/Commits/",
@@ -128,8 +133,10 @@ class ratings_247_Spider(Spider):
   # Parse functions #
   ###################
 
-  # Def standard parse() function to parse the page
   def parse(self, response):
+    """Default parse function for scrapy spider.
+       Begins with start URL(s) and kicks off subsequent requests
+    """
     # Get all list elements
     elements = response.xpath("//section[@class='ri-page__body']/div[@class='ri-page__main']/ul[@class='ri-page__list']/li[@class='ri-page__list-item']")
 
@@ -148,6 +155,7 @@ class ratings_247_Spider(Spider):
       item['state_ranking'] = element.xpath(".//div[@class='rating']/div[@class='rank']/a[@class='sttrank']/text()").get()
       item['commit_status_date'] = element.xpath(".//div[@class='status']/p[@class='commit-date withDate']/text()").get()
 
+      # Depending on recruit status, yield request or item
       if self.fetch_player_details():
         yield Request("https:" + item['player_page_url'], callback=self.parse_commit, meta={'parent': item})
       else:
@@ -155,6 +163,9 @@ class ratings_247_Spider(Spider):
 
 
   def parse_commit(self, response):
+    """Parse function to handle commit page
+
+    """
     # Assign item from parent
     item = response.meta['parent']
 
@@ -207,6 +218,9 @@ class ratings_247_Spider(Spider):
 
 
   def parse_offers(self, response):
+    """Parse function to handle offers page
+
+    """
     # Assign item from parent meta
     item = response.meta['commit']
 
@@ -226,10 +240,15 @@ class ratings_247_Spider(Spider):
   ####################
 
   def _get_sport_from_url(self, response):
-      _, _, _, _, _, _, a, _, _ = response.url.split('/')
-      return a[5:]
+    """Helper function to extract sport name from URL
+    """
+    _, _, _, _, _, _, a, _, _ = response.url.split('/')
+    return a[5:]
 
   def _determine_commit_status(self, response):
+    """Helper function to identify if commit page is old or new
+
+    """
     current, url = True, ""
     recruit_link = response.xpath(".//section[@class='main-content full']//a[@class='view-profile-link']/@href")
 
